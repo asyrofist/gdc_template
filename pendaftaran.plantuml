@@ -1,0 +1,42 @@
+@startuml pendaftaran
+actor Calon_Anggota #red
+Calon_Anggota->Menu_Pendaftaran: 1. Membuka menu pendaftaran
+Menu_Pendaftaran-->Calon_Anggota: menampilkan lokasi yang dapat dilayani
+
+Calon_Anggota->Menu_Pendaftaran: 2. Menginput nama, no. HP PIN, & mencentang SK
+Menu_Pendaftaran-->Calon_Anggota: mengirim SMS OTP
+
+Calon_Anggota->Menu_Pendaftaran: 3. Memasukkan kode OTP
+Menu_Pendaftaran-->Menu_Pendaftaran: verifikasi OTP
+
+alt OTP benar
+    autonumber 1 "<b>[000]"
+    autonumber resume "<font color=blue><b>Message 0  "
+    Menu_Pendaftaran-->Calon_Anggota: verifikasi OTP benar
+    Calon_Anggota->Menu_Pendaftaran: verifikasi lanjutan
+    autonumber stop
+
+else OTP salah
+   autonumber 3 "<b>[000]"
+   autonumber resume "<font color=red><b>Message 0  "
+   Menu_Pendaftaran-->Calon_Anggota: verifikasi OTP salah
+   autonumber stop
+end 
+Menu_Pendaftaran-->Menu_Pendaftaran: verifikasi fingerprint
+
+alt jika ada pingerprint
+    autonumber 4 "<b>[000]"
+    autonumber resume "<font color=blue><b>Message 0  "
+    Menu_Pendaftaran->Calon_Anggota: meminta persetujuan by fingerprint
+    Calon_Anggota->Menu_Pendaftaran: melakukan fingerprint
+    autonumber stop
+
+else jika tidak ada pingerprint
+   autonumber 6 "<b>[000]"
+   autonumber resume "<font color=red><b>Message 0  "
+   Menu_Pendaftaran->Calon_Anggota: pendaftaran gagal, coba ulang kembali
+   autonumber stop
+
+end
+
+@enduml

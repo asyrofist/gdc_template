@@ -1,0 +1,63 @@
+# Registrasi Calon Anggota menjadi anggota
+@startuml register
+actor Calon_Anggota #red
+actor Petugas_KYC #red
+Calon_Anggota->registrasi_anggota: 1.1 masuk menu registrasi anggota
+registrasi_anggota-->Calon_Anggota: menampilkan menu koperasi
+
+Calon_Anggota->registrasi_anggota: 1.2 Mengisi inputan & upload foto berkas
+registrasi_anggota-->Calon_Anggota: return
+
+registrasi_anggota->pengaduan_registrasi_anggota: data terkirim ke pengajuan registrasi anggota
+Petugas_KYC-->pengaduan_registrasi_anggota: 2.1 Masuk Pengajuan Registrasi Anggota
+pengaduan_registrasi_anggota->pengaduan_registrasi_anggota: 2.2 Otorisasi inputan calon anggota
+
+alt Jika Ditolak
+    autonumber 1 "<b>[000]"
+    autonumber resume "<font color=red><b>Message 0  "
+    pengaduan_registrasi_anggota-->registrasi_anggota: Pengajuan Ditolak
+    pengaduan_registrasi_anggota->Petugas_KYC: report
+    registrasi_anggota->Calon_Anggota: notifikasi pengajuan ditolak
+    autonumber stop
+
+else Jika Revisi
+   autonumber 3 "<b>[000]"
+   autonumber resume "<font color=blue><b>Message 0  "
+   pengaduan_registrasi_anggota->registrasi_anggota: Permintaan perbaikan data
+   pengaduan_registrasi_anggota->Petugas_KYC: report
+   registrasi_anggota->Calon_Anggota: notifikasi perbaikan data
+   Calon_Anggota->registrasi_anggota: 1.3 Merevisi Data
+   registrasi_anggota->pengaduan_registrasi_anggota: Rekap Dokumen Perbaikan Diterima
+   pengaduan_registrasi_anggota->pengaduan_registrasi_anggota: 2.3 Otorisasi perbaikan calon anggota
+   autonumber stop
+
+else Jika Berhasil
+   autonumber 3 "<b>[000]"
+   autonumber resume "<font color=green><b>Message 0  "
+   pengaduan_registrasi_anggota->rekap_registrasi_anggota_berhasil: report
+   rekap_registrasi_anggota_berhasil->registrasi_anggota: permintaan proses video call
+   registrasi_anggota->Calon_Anggota: notifikasi permintaan video call
+   Calon_Anggota->registrasi_anggota: 1.4 Video Call
+   registrasi_anggota->rekap_registrasi_anggota_berhasil: report
+   autonumber stop
+end
+
+rekap_registrasi_anggota_berhasil->rekap_registrasi_anggota_berhasil: 2.4 Rekap E-KYC
+
+alt Jika Ditolak
+    autonumber 1 "<b>[000]"
+    autonumber resume "<font color=red><b>Message 0  "
+    rekap_registrasi_anggota_berhasil->registrasi_anggota: kembali ke menu registrasi anggota
+    registrasi_anggota->Calon_Anggota: notifikasi video call diulang kembali
+    autonumber stop
+
+else Jika Revisi
+   autonumber 3 "<b>[000]"
+   autonumber resume "<font color=blue><b>Message 0  "
+   rekap_registrasi_anggota_berhasil->registrasi_anggota: return sukses menjadi anggota
+   registrasi_anggota->Calon_Anggota: notifikasi pengajuan diterima & pop-up pembayaran saldo wajib & pokok
+   autonumber stop
+end
+
+Calon_Anggota->Calon_Anggota: 1.6 Top-up saldo dan Pembayaran Simpanan Wajib & Pokok
+@enduml
