@@ -1,0 +1,153 @@
+# cara install git dan konfigurasi awal yang harus dilakukan.
+1. cara install git linux
+	sudo apt install git
+	sudo apt-get install git
+	yum install git
+	git version
+
+2. cara install git di windows
+	installer git
+
+3. konfigurasi awal yang harus dilakukan.
+	git config --global user.name "asyrofist"
+	git config --global user.email contoh@petanikode.com
+	git config --list
+
+# cara membuat repositori baru dalam proyek
+1. membuat repository
+	git init proyek-01
+	git init .
+
+
+2. .gitignore - file yg beisi daftar nama-nama file & direktori yg diabaikan.
+
+# simpan perubahan revisi dengan git commit
+	git status
+3 kelompok kondisi file dalam git
+- modified, staged, commiteed.
+
+	git add index.html
+	git add about.html
+	git add contact.html
+	atau
+	git add index.html about.html contect.html
+	atau git *.html
+	atau git add .
+	
+	git commit -m "Commit pertama"
+
+# melihat catatan log revisi
+	git log
+
+1. log yang lebih pendek
+	git log --oneline
+	
+2. log pada nomer revisi/commit
+	git log cf08ca0837cf26f1c595be36bb3a6b815e311be1
+
+3. log pada file tertentu
+	git log index.html
+
+4. log revisi yang dilakukan oleh author tertentu
+	git log --author="Petani kode"
+
+# melihat perbandingan revisi dengan git diff
+1. melihat perbandingan perubahan yang dilakukan pada revisi
+	git diff cf08ca0837cf26f1c595be36bb3a6b815e311be1
+
+2. melihat perbandingan pada file
+	git diff index.html
+
+3. melihat perbandingan antar revisi/commit
+	git diff <nomer commit> <nomer commit>
+
+4. perbandingan antar cabang
+	git diff <nama cabang> <nama cabang>
+
+# perintah untuk membatalkan revisi
+ada 3 command yg digunakan git checkout, reset, revert
+
+1.membatalkan perubahan
+	git checkout index.html
+
+2. membatalkan perubahan file yang sudah dalam kondisi staged
+	git add index.html
+	git status
+	git reset index.html
+	git status
+	git checkout index.html
+
+3. membatalkan perubahan file yang sudah dalam kondisi commited.
+	git add index.html
+	git commit -m "belajar"
+	git checkout b05f7d05c9298f2cd11b870369f3cf4b2350eca7 index.html
+	git reset index.html
+	git checkout b05f7d05c9298f2cd11b870369f3cf4b2350eca7 
+
+4. kembali ke 3 commit sebelumnya
+	git checkout HEAD~3 index.html
+
+5. membatalkan semua perubahan yang ada
+	git revert -n <nomer commit>
+
+# menggunakan percabangan u/ mencegah konflik
+1. cara membuat cabang baru
+	git branch fitur_register
+2. menggabungkan cabang
+	git checkout master
+	git merge halaman_login
+	
+3. mengatasi bentrok
+	git checkout halaman_login
+	git diff
+	git add login.html
+	git commit -m "ubah"
+	git add login.html
+	git commit -m "ubah cabang"
+	git merge halaman_login
+	git add login.html
+	git commit -m "perbaiki konflik"
+
+4. menghapus cabang
+	git branch -d halaman_login
+
+#perbedaan git checkout, git reset dan git revert
+1. git checkout
+	git checkout 06f735af7724558164c87f6b1ce3ca7778eb1c1b
+	git checkout -b nama_cabang <nomer_commit>
+
+2. git reset
+	git reset --soft 06f735af7724558164c87f6b1ce3ca7778eb1c1b
+
+3. git revert
+	git revert 	
+
+#bekerja dengan remote repositori
+1. membuat repository di github
+2. menambahkan dan menghapus remote
+	melalui https: https://github.com/petanikode/belajar-git.git
+	melalui ssh: git@github.com:petanikode/belajar-git.git
+	git remote add github git@github.com:petanikode/belajar-git.git
+	git remote rename github kantor
+	git remote remove github
+3. mengirim revisi ke remote repository
+	git push github master
+	git add .
+	git commit -m "menambahkan beberapa revisi"	
+	git add index.html
+	git commit -m "mengubah judul dan teks di body"
+	git push github master
+
+4. mengambil revisi dari remote repository
+	git fetch [nama remote] [nama cabang]
+	git pull [nama remote] [nama cabang]
+
+5. mengambil revisi dengan git fetch
+	git diff master github/master
+	git merge master github/master
+
+6. mengambil revisi dengan git pull
+	git pull github master
+
+7. clone remote repository
+	git clone https://github.com/petanikode/belajar-git.git [nama dir]
