@@ -1,0 +1,55 @@
+@startuml pengajuan3
+actor adminJaminan
+actor Kasir
+actor Kurir
+actor anggota
+
+box "koperasiku" #LightBlue
+participant status_pengajuan
+end box
+
+box "web koperasi" #LightBlue
+participant pengambilan_jaminan
+participant pencairan_dana
+end box
+
+box "My Work" #LightBlue
+participant ambilJaminan
+end box
+
+adminJaminan -> pengambilan_jaminan: Masuk menu pengambilan jaminan
+pengambilan_jaminan --> adminJaminan: return
+
+pengambilan_jaminan --> status_pengajuan: sistem memberi notifikasi pengambilan jaminan
+anggota -> status_pengajuan: anggota masuk menu pengajuan
+status_pengajuan --> anggota: return
+
+anggota -> status_pengajuan: anggota memilih waktu dan tempat pengambilan jaminan
+status_pengajuan --> pengambilan_jaminan: (report) sistem mengirim data waktu & tempat pengambilan jaminan
+status_pengajuan --> anggota: return
+
+adminJaminan -> pengambilan_jaminan: admin jaminan memilih kurir
+pengambilan_jaminan -> ambilJaminan: sistem melakukan permintaan order kurir
+Kurir -> ambilJaminan: Kurir masuk menu pengambilan jaminan
+ambilJaminan --> Kurir: return
+Kurir -> ambilJaminan: Kurir mengecek data anggota
+ambilJaminan --> pengambilan_jaminan: return
+Kurir -> ambilJaminan: Kurir melakukan check-in
+ambilJaminan --> pengambilan_jaminan: return
+Kurir -> ambilJaminan: Kurir mengisi laporan
+ambilJaminan -> ambilJaminan: checkout
+ambilJaminan --> Kurir: sistem menampilkan history pengambilan jaminan
+ambilJaminan --> adminJaminan: sistem mengirm informasi konfirmasi jaminan diterima.
+
+adminJaminan -> pengambilan_jaminan: admin jaminan mengupload berkas pendukung
+pengambilan_jaminan -> pencairan_dana: pencairan dana disetujui oleh sistem.
+pencairan_dana --> status_pengajuan: sistem memberi notifikasi pengajuan dana disetujui
+Kasir -> pencairan_dana: kasir masuk menu pencairan dana
+pencairan_dana --> Kasir: return
+Kasir -> pencairan_dana: kasir melakukan pencairan dana
+pencairan_dana --> status_pengajuan: sistem memberi notifikasi pencairan dana berhasil
+anggota -> status_pengajuan: anggota mengecek pencairan dana
+status_pengajuan --> anggota: return
+pencairan_dana --> adminJaminan: Sistem memberi notifikasi pinjaman terdanai
+
+@enduml

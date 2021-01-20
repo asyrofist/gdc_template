@@ -1,0 +1,56 @@
+@startuml loginUser
+title Template Login Calon Anggota
+
+actor Calon_Anggota #red
+
+box "ArtaKu" #LightBlue
+participant loginUser
+participant Beranda
+end box
+
+box "web koperasi" #LightBlue
+participant login
+end box
+
+
+Calon_Anggota->loginUser: 1. Membuka menu loginUser
+loginUser-->Calon_Anggota: menampilkan inputan no. HP
+
+Calon_Anggota->loginUser: 2. Mengisi no. HP yang terdaftar
+
+
+alt Jika sudah pernah melakukan OTP di device yang sama
+    autonumber 1 "<b>[000]"
+    autonumber resume "<font color=blue><b>Message 0  "
+    Calon_Anggota->Beranda: langsung masuk beranda 
+    autonumber stop
+
+else Jika tidak pernah melakukan OTP
+   autonumber 2 "<b>[000]"
+   autonumber resume "<font color=red><b>Message 0  "
+   loginUser-->Calon_Anggota: mengirim SMS OTP
+   Calon_Anggota->loginUser: 3. Memasukkan kode OTP
+   loginUser-->loginUser: verifikasi OTP
+   autonumber stop
+
+
+    alt Jika OTP benar
+        autonumber 1 "<b>[000]"
+        autonumber resume "<font color=blue><b>Message 0  "
+        loginUser-->Calon_Anggota: verifikasi OTP benar
+        Calon_Anggota->Beranda: verifikasi lanjutan, berhasil masuk menu beranda
+        autonumber stop
+
+    else Jika OTP salah
+    autonumber 4 "<b>[000]"
+    autonumber resume "<font color=red><b>Message 0  "
+    loginUser-->Calon_Anggota: verifikasi OTP salah
+    autonumber stop
+
+    end 
+end 
+        Beranda -> login: rekapan user berhasil login
+
+
+' setelah loginUser berhasil, data terkirim ke menu LoginUser (Web Koperasi) dan calon anggota berhasil masuk ke menu Beranda
+@enduml

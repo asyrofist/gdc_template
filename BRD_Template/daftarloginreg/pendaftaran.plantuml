@@ -1,0 +1,63 @@
+@startuml pendaftaran
+title Template Pendaftaran Calon Anggota
+
+actor Calon_Anggota #red
+box "ArtaKu" #LightBlue
+participant Menu_Pendaftaran
+end box
+
+box "Web Koperasi" #LightBlue
+participant pendaftaranUserberhasil 
+participant pendaftaranUser
+end box
+
+
+' activate Calon_Anggota
+' activate Menu_Pendaftaran
+' activate pendaftaranUserberhasil
+' activate pendaftaranUser
+
+Calon_Anggota->Menu_Pendaftaran: 1. Membuka menu pendaftaran
+Menu_Pendaftaran-->Calon_Anggota: menampilkan lokasi yang dapat dilayani
+
+Calon_Anggota->Menu_Pendaftaran: 2. Menginput nama, no. HP PIN, & mencentang SK
+Menu_Pendaftaran-->Calon_Anggota: mengirim SMS OTP
+
+' +menu Pendaftaran User
+' jika calon anggota tidak sampai memasukkan kode OTP atau tidak melanjutkan proses pendaftaran
+alt Jika calon anggota tidak sampai memasukkan kode OTP/ salah memasukkan nomor / tidak melanjutkan proses pendaftaran
+    autonumber 1 "<b>[000]"
+    autonumber resume "<font color=red><b>Message 0  "
+    Calon_Anggota -> pendaftaranUser: Calon anggota masuk menu pendaftaran User melalui menu pendaftaran User
+    ' pendaftaranUser-->Calon_Anggota: pendaftaran berhasil
+    autonumber stop
+
+else Jika calon anggota berhasil menggunakan OTP
+   autonumber 3 "<b>[000]"
+   autonumber resume "<font color=blue><b>Message 0  "
+'    Calon_Anggota -> Menu_Pendaftaran: Calon anggota masuk menu pendaftaran User
+   Calon_Anggota->Menu_Pendaftaran: 3. Memasukkan kode OTP
+   Menu_Pendaftaran-->Menu_Pendaftaran: verifikasi OTP
+
+    alt Jika OTP yang dimasukkan benar
+        autonumber 1 "<b>[000]"
+        autonumber resume "<font color=blue><b>Message 0  "
+        Menu_Pendaftaran-->Calon_Anggota: verifikasi OTP benar
+        Calon_Anggota->Menu_Pendaftaran: verifikasi lanjutan
+        Menu_Pendaftaran -->pendaftaranUserberhasil: rekap pendaftaran berhasil
+        Menu_Pendaftaran -->Calon_Anggota: pendaftaran berhasil & dilanjutkan masuk login
+        autonumber stop
+
+    else Jika OTP yang dimasukkan salah
+        autonumber 3 "<b>[000]"
+        autonumber resume "<font color=red><b>Message 0  "
+        Menu_Pendaftaran-->Calon_Anggota: verifikasi OTP salah
+        autonumber stop
+    end 
+
+   autonumber stop
+
+
+ end 
+
+@enduml

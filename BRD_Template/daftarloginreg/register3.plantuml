@@ -1,0 +1,62 @@
+@startuml register3
+title Template Register Calon Anggota menjadi Anggota Aktif - 3
+
+actor calonAnggota
+box "Web Koperasi" #LightBlue
+participant proses_Videocall
+participant eKYC_tolak
+participant eKYC_gagal
+participant eKYC_berhasil
+participant proses_Topupregistrasi
+end box
+
+' Calon anggota melakukan proses video call.
+calonAnggota -> proses_Videocall: Calon Anggota melakukan proses video call.
+
+' Jika proses video call dari hasil wawancara petugas KYC terhadap calon anggota gagal untuk berkomunikasi, 
+alt proses video call gagal
+    autonumber 7 "<b>[000]"
+    autonumber resume "<font color=red><b>Message 0  "
+    ' maka muncul notifikasi eKYC gagal dan perlu diulang kembali.
+    proses_Videocall -> eKYC_gagal: petugasKYC tidak bisa menerima video Call dari Calon anggota
+    eKYC_gagal -> calonAnggota: eKYC sistem memberi notifikasi eKYC gagal dan perlu diulang kembali.
+    autonumber stop
+
+' Jika proses video call dari hasil wawancara petugas KYC terhadap calon anggota ditolak, 
+else proses video call ditolak
+   autonumber 9 "<b>[000]"
+   autonumber resume "<font color=blue><b>Message 0  "
+   ' maka muncul notifikasi eKYC tolak ke calon anggota.
+   proses_Videocall -> eKYC_tolak: petugasKYC tidak bisa menerima video Call dari Calon anggota
+   eKYC_tolak -> calonAnggota: eKYC sistem memberi notifikasi notifikasi eKYC tolak ke calon anggota.
+   autonumber stop
+
+' Jika proses video call dari hasil wawancara petugas KYC terhadap calon anggota berhasil. 
+else proses video call berhasil
+   autonumber 11 "<b>[000]"
+   autonumber resume "<font color=green><b>Message 0  "
+   ' maka muncul notifikasi eKYC Berhasil & masuk beranda sebagai anggota aktif.
+   proses_Videocall -> eKYC_berhasil: petugasKYC tidak bisa menerima video Call dari Calon anggota
+   eKYC_berhasil --> calonAnggota: eKYC sistem memberi notifikasi notifikasi eKYC Berhasil & masuk beranda.
+   calonAnggota -> proses_Topupregistrasi: Proses Topup Registrasi
+   autonumber stop
+
+   ' Jika proses video call dari hasil wawancara petugas KYC terhadap calon anggota gagal untuk berkomunikasi, 
+   alt Jika berhasil TopUp dengan nominal simpanan pokok & wajib yang diautodebet
+      autonumber 14 "<b>[000]"
+      autonumber resume "<font color=blue><b>Message 0  "
+      ' maka muncul notifikasi eKYC gagal dan perlu diulang kembali.
+      proses_Topupregistrasi -> calonAnggota: Sistem memberi notifikasi telah berhasil melakukan TopUp & berhasil menjadi anggota aktif.
+      autonumber stop
+
+   ' Jika proses video call dari hasil wawancara petugas KYC terhadap calon anggota ditolak, 
+   else Jika gagal TopUp, 2x24 jam lebih tidak melakukan topup
+      autonumber 15 "<b>[000]"
+      autonumber resume "<font color=red><b>Message 0  "
+      ' maka muncul notifikasi eKYC tolak ke calon anggota.
+      proses_Topupregistrasi -> calonAnggota: Sistem memberi notifikasi gagal melakukan TopUp.
+      autonumber stop
+   end
+
+end
+@enduml

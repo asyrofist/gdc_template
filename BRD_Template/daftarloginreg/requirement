@@ -1,0 +1,47 @@
+#pendaftaran    
+Calon anggota membuka aplikasi ArtaKu dengan OS Android & iOS sesuai minimum spesifikasi.
+Calon anggota memilih menu Koperasiku melalui aplikasi Artaku.
+Calon anggota menginput form pendaftaran yang terdiri dari Nama, Nomor Telepon & PIN, serta mencentang syarat ketentuan yang berlaku sesuai tanggal input.
+Jika calon anggota tidak memasukkan OTP / tidak melanjutkan proses pendaftaran, maka data calon anggota masuk menu pendaftaran user ke sistem web koperasi.
+Menu pendaftaran user menyediakan kolom Tanggal Input, Nama, Nomor Telepon Jenis HP, OS
+Jika calon anggota tidak berhasil menggunakan OTP maksimal 3x, maka sistem mengirim notifikasi calon anggota gagal melakukan registrasi, sehingga perlu dilakukan register kembali.
+Jika calon anggota berhasil menggunakan OTP, maka calon anggota memasukan OTP tersebut. Lalu sistem memverifikasi inputan OTP tersebut sesuai tanggal berhasil.
+
+# non functional pendaftaran
+Sistem menampilkan tampilan awal aplikasi ArtaKu.
+Sistem menampilkan tempat lokasi yang dilayani.
+Sistem mengirim One Time Password (OTP) ke Nomor Telepon calon anggota melalui SMS. Response request OTP dilakukan selama 1 x 15 menit.
+Sistem memverifikasi kembali, jika calon anggota menggunakan jenis HP yang lain.
+
+#login
+Calon anggota membuka aplikasi ArtaKu dengan OS Android & iOS sesuai minimum spesifikasi.
+Calon anggota menginput Nomor Telepon di aplikasi ArtaKu.
+
+Jika calon anggota tidak berhasil menggunakan OTP maksimal 3x, maka sistem mengirim notifikasi calon anggota gagal melakukan login, sehingga perlu dilakukan login kembali.
+Jika calon anggota berhasil menggunakan OTP, maka calon anggota memasukan OTP tersebut. Lalu sistem memverifikasi inputan OTP tersebut sesuai tanggal login dan data calon anggota masuk menu login di web koperasi.
+# non functional login
+Menu login pada web koperasi menyediakan kolom Tanggal Login, Nama, Nomor Telepon, Jenis HP, OS
+Sistem menampilkan tampilan awal berupa inputan nomor HP aplikasi ArtaKu.
+Sistem mengirim One Time Password (OTP) ke Nomor Telepon calon anggota melalui SMS. Response request OTP ini dilakukan selama 1 x 15 menit.
+Sistem memverifikasi kembali, jika calon anggota menggunakan jenis HP yang lain.
+
+# register
+Calon anggota memasuki menu pengajuan registrasi anggota melalui aplikasi ArtaKu.
+Calon anggota memilih daftar pilihan koperasi yang tersedia pada menu pengajuan registrasi.
+Calon anggota memilih pilihan koperasi & mengisi dokumen registrasi yang terdiri dari nama & nomor telepon, serta mengupload foto berdasarkan tanggal input & waktu input.
+Petugas KYC memasuki menu pengajuan registrasi anggota melalui Web Koperasi.
+Petugas KYC melakukan proses evaluasi dokumen registrasi yang terdiri dari nama & no.telp pada menu registrasi anggota dalam proses berdasarkan tanggal input & waktu input.
+
+# non functional register
+Sistem menampilkan tampila awal dari menu pengajuan registrasi anggota.
+Sistem menampilkan list pilihan koperasi.
+Sistem mengirim data ke menu pengajuan registrasi anggota.
+Sistem menampilkan dokumen registrasi di web koperasi
+Sistem melakukan proses video call sesuai dengan nama & nomor telepon ke calon anggota. 
+Jika dokumen registrasi yang terdiri dari nama & nomor telepon dalam proses pengajuan salah, maka petugas KYC melakukan rekapan melalui menu rekap dokumen identitas perbaikan berdasarkan tanggal input & waktu input.
+Jika dokumen registrasi yang terdiri dari nama & nomor telepon telah diperbaiki, di cek terlebih dahulu oleh petugas KYC sudah benar. Maka informasi anggota akan berpindah ke menu rekap dokumen perbaikan diterima berdasarkan tanggal input & waktu input.
+Jika proses video call berdasarkan tanggal input & waktu input dari hasil wawancara petugas KYC terhadap calon anggota gagal untuk berkomunikasi, maka terekam pada menu eKYC gagal dengan status (gagal) dan perlu diulang kembali.
+Jika proses video call berdasarkan tanggal input & waktu input sesuai dengan nama & nomor telepon dari hasil wawancara petugas KYC terhadap calon anggota ditolak, maka terekam pada menu eKYC tolak dengan status (tolak) berdasarkan Tanggal Vcall & Waktu Vcall.
+Jika proses video call berdasarkan tanggal input & waktu input dengan nama & nomor telepon dari hasil wawancara petugas KYC terhadap calon anggota berhasil. maka terekam pada menu  eKYC Berhasil. Lalu terkirim notifikasi top up ke calon anggota untuk melakukan proses top up registrasi
+Jika calon anggota gagal melakukan top up selama 2x24 jam sesuai nominal simpanan pokok & wajib yang di autodebet, maka muncul notifikasi top up gagal dilakukan. Data akan terekam ke menu rekap registrasi anggota ditolak dengan status (tolak) berdasarkan Vcall & Waktu Vcall.
+Jika calon anggota berhasil melakukan top up sesuai nominal simpanan pokok & wajib yang di autodebet, maka muncul notifikasi topup telah dilakukan & menjadi anggota aktif. Data akan terekam ke menu rekap registrasi anggota berhasil dengan status (berhasil).

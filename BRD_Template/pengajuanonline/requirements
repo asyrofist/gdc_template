@@ -1,0 +1,47 @@
+# functional requirement
+Anggota memasuki menu pinjaman dana.
+Anggota menginput jaminan melalui menu pinjaman dana.
+Anggota menginput nominal pinjaman melalui menu pinjaman dana.
+Anggota memilih atau mengajukan nego melalui menu pinjaman dana.
+SPV memasuki menu nego pengajuan pinjaman & mengecek permintaan nego.
+Marketing memasuki menu review pengajuan BPKB & mereview pengajuan pinjaman.
+Anggota memasuki menu pinjaman data, menginput & mengupload perbaikan data.
+Credit analyst memasuki menu survey.
+Marketing menganalisa perbaikan data.
+Admin jaminan memasuki menu pengambilan jaminan.
+Anggota memasuki menu pengajuan, memilih waktu & tempat pengambilan jaminan.
+Admin jaminan memilih kurir.
+Kurir memasuki menu pengambilan jaminan.
+Kurir mengecek data anggota, melakukan check in & mengisi laporan.
+Admin jaminan mengupload berkas pendukung.
+Kasir memasuki menu pencairan dana & mencairkan dana.
+Anggota mengecek pencairan dana.
+
+# non functional requirement
+Sistem menampilkan wilayah yang dilayani.
+Sistem menampilkan simulasi & kalkulator pinjaman.
+Sistem menampilkan nominal simulasi.
+Sistem mengecek status registrasi anggota.
+Jika belum menjadi anggota, maka sistem mengalihkan ke halaman registrasi anggota.
+Jika sudah menjadi anggota, maka sistem mengecek status keanggotaan.
+Sistem menampilkan halaman dashboard.
+Jika anggota pasif memilih pengajuan, maka dialihkan ke halaman pembayaran simpanan pokok & wajib.
+Jika anggota memilih nego, maka sistem melakukan nego pengajuan pinjaman.
+Sistem memberi notifikasi menyetujui nego.
+Jika anggota memilih pengajuan, maka sistem memberi notifikasi status pengajuan pinjaman.
+Sistem masuk ke menu review pengajuan BPKB.
+Jika ada perbaikan data, maka sistem mengirim permintaan perbaikan data.
+Sistem mengirim berkas perbaikan data ke menu review pengajuan BPKB.
+Jika tidak ada perbaikan data, maka dilanjutkan ke sistem.
+Jika marketing menolak pengajuan BPKB, maka sistem menulis pengajuan ditolak & rekap pengajuan ditolak.
+Jika marketing menyetujui pengajuan BPKB, maka anggota diminta melakukan pengambilan jaminan.
+Jika marketing meminta request survey, maka sistem memasukkan data ke proses survey.
+Jika credit analyst menerima pengajuan, maka sistem memberi notifikasi status pengajuan diterima.
+Jika credit analyst menolak pengajuan, maka sistem membuat pengajuan sistem ditolak & melakukan rekapan hasil pengajuan sistem tersebut.
+Sistem memberi notifikasi pengambilan jaminan.
+Sistem mengirim data waktu & tempat pengambilan jaminan.
+Sistem melakukan permintaan order kurir.
+Sistem menampilkan history pengambilan jaminan & mengirim informasi konfirmasi jaminan diterima.
+Sistem menyetujui pencairan dana & memberi notifikasi pengajuan dana disetujui.
+Sistem memberi notifikasi pencairan dana berhasil.
+Sistem memberi notifikasi pinjaman terdanai.

@@ -1,0 +1,34 @@
+@startuml register2
+title Template Register Calon Anggota menjadi Anggota Aktif - 2
+
+actor petugasKYC
+actor calonAnggota
+
+box "Web Koperasi" #LightBlue
+participant rekap_Dokumen_identitas_perbaikan
+participant rekap_Dokumen_perbaikan_diteirma
+participant registrasi_Anggotadalamproses
+end box
+
+
+registrasi_Anggotadalamproses -> petugasKYC : sistem menampilkan registrasi anggota
+
+' Jika form registrasi anggota dalam proses pengisian tidak lengkap, 
+alt Jika form registrasi salah butuh perbaikan
+    autonumber 3 "<b>[000]"
+    autonumber resume "<font color=red><b>Message 0  "
+    ' maka petugas KYC memberi notifikasi rekap dokumen identitas perbaikan ke calon anggota.
+    petugasKYC -> rekap_Dokumen_identitas_perbaikan: Petugas KYC menulis catatan form ke sistem yang perlu diperbaiki.
+    rekap_Dokumen_identitas_perbaikan --> calonAnggota: sistem memberi notifikasi Calon Anggota melakukan perbaikan. 
+    autonumber stop
+
+' Jika form registrasi anggota dalam proses pengisian lengkap, 
+else Jika form registrasi benar / lengkap setelah diperbaiki
+   autonumber 5 "<b>[000]"
+   autonumber resume "<font color=blue><b>Message 0  "
+   ' maka petugas KYC memberi notifikasi rekap dokumen perbaikan diterima ke calon anggota.
+   petugasKYC -> rekap_Dokumen_perbaikan_diteirma: Petugas KYC menyetujui perbaikan melalui sistem.
+   rekap_Dokumen_perbaikan_diteirma --> calonAnggota: sistem memberi notifikasi Calon Anggota telah diterima.
+   autonumber stop
+end 
+@enduml

@@ -1,0 +1,55 @@
+@startuml pengajuanonline
+actor anggota
+actor SPV
+
+box "koperasiku" #LightBlue
+participant pinjaman_dana
+end box
+
+box "web koperasi" #LightBlue
+participant nego_pengajuan_pinjaman
+participant review_pengajuan_bpkb
+end box
+
+anggota -> pinjaman_dana: Anggota memilih ajukan atau nego
+
+alt Jika anggota pasif memilih pengajuan
+    autonumber 3 "<b>[000]"
+    autonumber resume "<font color=red><b>Message 0  "
+    ' pinjaman_dana --> anggota: dialihkan ke halaman pembayaran simpanan pokok & wajib
+    pinjaman_dana --> anggota: dialihkan ke halaman pembayaran simpanan wajib
+    autonumber stop
+
+else Jika anggota aktif
+   autonumber 4 "<b>[000]"
+   autonumber resume "<font color=blue><b>Message 0  "
+   pinjaman_dana --> anggota: dilanjutkan ke sistem.
+   autonumber stop
+
+    alt Jika anggota memilih nego
+        autonumber 4 "<b>[000]"
+        autonumber resume "<font color=blue><b>Message 0  "
+        pinjaman_dana -> nego_pengajuan_pinjaman: Sistem melakukan pengajuan pinjaman
+        SPV -> pinjaman_dana: SPV masuk menu nego pengajuan pinjaman
+        pinjaman_dana --> SPV: return
+        SPV -> pinjaman_dana: SPV mengecek permintaan nego
+        nego_pengajuan_pinjaman -> pinjaman_dana: sistem menyetujui nego
+        nego_pengajuan_pinjaman --> SPV: return
+        pinjaman_dana --> anggota: (report) sistem memberi notifikasi menyetujui nego
+        anggota --> pinjaman_dana: anggota melakukan pengajuan pinjaman
+        autonumber stop
+
+    else Jika anggota memilih ajukan
+        autonumber 12 "<b>[000]"
+        autonumber resume "<font color=green><b>Message 0  "
+        pinjaman_dana --> anggota: report (status pengajuan pinjaman)
+        pinjaman_dana --> review_pengajuan_bpkb: data masuk ke review pengajuan BPKB
+        autonumber stop
+    end 
+
+end 
+@enduml
+
+
+
+

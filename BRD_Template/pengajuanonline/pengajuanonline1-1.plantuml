@@ -1,0 +1,39 @@
+@startuml pengajuanonline
+actor anggota
+' actor SPV
+
+box "koperasiku" #LightBlue
+participant pinjaman_dana
+end box
+
+box "web koperasi" #LightBlue
+participant nego_pengajuan_pinjaman
+end box
+
+anggota -> pinjaman_dana: Anggota masuk menu pinjaman dana
+pinjaman_dana --> anggota: sistem menampilkan wilayah yang dilayani
+anggota -> pinjaman_dana: Anggota menginput jaminan
+pinjaman_dana --> anggota: sistem menapilkan simulasi & kalkulator pinjaman
+anggota -> pinjaman_dana: Anggota menginput nominal pinjaman
+' anggota -> pinjaman_dana: Anggota memilih ajukan atau nego
+pinjaman_dana --> anggota: sistem menampilkan nnominal simulasi
+pinjaman_dana -> pinjaman_dana: cek status registrasi anggota
+
+alt Jika belum menjadi anggota 
+    autonumber 1 "<b>[000]"
+    autonumber resume "<font color=red><b>Message 0  "
+    pinjaman_dana --> anggota: dialihkan ke halaman registrasi anggota
+    autonumber stop
+
+else Jika anggota
+   autonumber 2 "<b>[000]"
+   autonumber resume "<font color=blue><b>Message 0  "
+   pinjaman_dana --> pinjaman_dana: cek status keanggotaan
+   autonumber stop
+end
+pinjaman_dana --> anggota: sistem menampilkan status anggota
+@enduml
+
+
+
+

@@ -1,0 +1,82 @@
+@startuml pengajuan2
+actor marketing
+actor Credit_Analyst
+actor anggota
+
+box "koperasiku" #LightBlue
+participant pinjaman_dana
+end box
+
+box "web koperasi" #LightBlue
+participant review_pengajuan_bpkb
+participant proses_survey
+participant request_pengambilan_jaminan
+end box
+
+pinjaman_dana --> review_pengajuan_bpkb: data masuk ke review pengajuan BPKB
+marketing -> review_pengajuan_bpkb: marketing masuk menu review pengajuan BPKB
+review_pengajuan_bpkb -> marketing: return
+marketing -> review_pengajuan_bpkb: marketing mereview pengajuan pinjaman
+
+alt Jika ada perbaikan data
+    autonumber 1 "<b>[000]"
+    autonumber resume "<font color=red><b>Message 0  "
+    review_pengajuan_bpkb -> pinjaman_dana: sistem mengirim permintaan perbaikan data
+    anggota -> pinjaman_dana: anggota masuk menu pinjaman data
+    pinjaman_dana --> anggota: return
+    anggota -> pinjaman_dana: anggota menginput & mengupload perbaikan data
+    pinjaman_dana --> anggota: return
+    pinjaman_dana -> review_pengajuan_bpkb: sistem mengirim berkas perbaikan data
+    marketing -> review_pengajuan_bpkb: marketing menganalisa perbaikan data
+    autonumber stop
+
+else Jika tidak ada perbakan data
+   autonumber 4 "<b>[000]"
+   autonumber resume "<font color=blue><b>Message 0  "
+   review_pengajuan_bpkb -> marketing: lanjutkan ke sistem
+   autonumber stop
+
+    alt Jika ditolak
+        autonumber 1 "<b>[000]"
+        autonumber resume "<font color=red><b>Message 0  "
+        marketing -> review_pengajuan_bpkb: marketing menolak pengajuan BPKB
+        review_pengajuan_bpkb --> pinjaman_dana: (report) status pengajuan ditolak
+        review_pengajuan_bpkb --> marketing: (report) rekap pengajuan ditolak
+        autonumber stop
+
+    else Jika diterima
+        autonumber 4 "<b>[000]"
+        autonumber resume "<font color=green><b>Message 0  "
+        marketing -> review_pengajuan_bpkb: marketing menyetujui pengajuan BPKB
+        marketing --> request_pengambilan_jaminan: (report) request pengambilan jaminan
+        autonumber stop
+
+    else Jika survey
+        autonumber 4 "<b>[000]"
+        autonumber resume "<font color=blue><b>Message 0  "
+        marketing -> review_pengajuan_bpkb: marketing request melakukan survey
+        review_pengajuan_bpkb -> proses_survey: sistem memasukkan data ke proses survey
+        Credit_Analyst -> proses_survey: credit analyst masuk menu survey
+        proses_survey --> Credit_Analyst: return
+        autonumber stop
+        
+        alt Jika diACC
+            autonumber 1 "<b>[000]"
+            autonumber resume "<font color=green><b>Message 0  "
+            Credit_Analyst -> proses_survey: Credit analyst menerima pengajuan
+            request_pengambilan_jaminan --> pinjaman_dana: sistem memberi notifikasi status pengajuan diterima
+            request_pengambilan_jaminan --> Credit_Analyst: return
+            autonumber stop
+
+        else Jika ditolak
+            autonumber 4 "<b>[000]"
+            autonumber resume "<font color=red><b>Message 0  "
+            Credit_Analyst -> proses_survey: Credit analyst menolak pengajuan
+            proses_survey --> Credit_Analyst: (report) rekap pengajuan ditolak 
+            proses_survey --> pinjaman_dana: (report) status pinjaman ditolak 
+            autonumber stop
+        end
+    end 
+
+end 
+@enduml

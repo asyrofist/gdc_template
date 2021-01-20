@@ -1,0 +1,48 @@
+@startuml register
+title Template Register Calon Anggota menjadi Anggota Aktif - 1
+
+actor calonAnggota
+actor petugasKYC
+box "ArtaKu" #LightBlue
+participant registrasi_Anggota
+end box
+
+box "Web Koperasi" #LightBlue
+participant pengajuan_Registrasi_anggota
+participant registrasi_Anggotadalamproses
+end box
+
+
+' Calon anggota masuk menu registrasi anggota
+calonAnggota -> registrasi_Anggota: calonAnggota masuk menu registrasi anggota
+registrasi_Anggota --> calonAnggota: Sistem membuka menu registrasi anggota.
+
+' Calon anggota memilih koperasi
+calonAnggota -> registrasi_Anggota: calonAnggota memilih koperasi
+' Sistem menampilkan list pilihan koperasi
+registrasi_Anggota --> calonAnggota: Sistem menampilkan pilihan koperasi & lokasi yang dapat dilayani.
+
+' Calon anggota memilih pilihan koperasi
+calonAnggota -> registrasi_Anggota: Calon anggota memilih pilihan koperasi
+registrasi_Anggota --> calonAnggota: Sistem menampilkan list pilihan koperasi
+
+' Calon anggota mengisi form & upload foto.
+calonAnggota -> registrasi_Anggota: Calon anggota mengisi form & upload foto
+
+alt Jika form inputan tidak lengkap / belum tekan tombol kirim data
+    autonumber 1 "<b>[000]"
+    autonumber resume "<font color=red><b>Message 0  "
+    
+    registrasi_Anggota -> pengajuan_Registrasi_anggota: Sistem mengirim data ke menu pengajuan registrasi anggota    
+    autonumber stop
+
+' Jika form registrasi anggota dalam proses pengisian lengkap, 
+else Jika form lengkap dan telah ditekan tombol kirim
+   autonumber 2 "<b>[000]"
+   autonumber resume "<font color=blue><b>Message 0  "
+   ' maka petugas KYC memberi notifikasi rekap dokumen perbaikan diterima ke calon anggota.
+    registrasi_Anggota -> registrasi_Anggotadalamproses: update data pengajuan anggota
+   
+   autonumber stop
+end 
+@enduml
